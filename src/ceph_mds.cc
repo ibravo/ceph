@@ -50,7 +50,7 @@ using namespace std;
 
 void usage()
 {
-  derr << "usage: ceph-mds -i name [flags] [[--journal_check rank]|[--hot-standby][rank]]\n"
+  cout << "usage: ceph-mds -i name [flags] [[--journal_check rank]|[--hot-standby][rank]]\n"
        << "  -m monitorip:port\n"
        << "        connect to monitor at given address\n"
        << "  --debug_mds n\n"
@@ -59,7 +59,7 @@ void usage()
        << "        replay the journal for rank, then exit\n"
        << "  --hot-standby rank\n"
        << "        start up as a hot standby for rank\n"
-       << dendl;
+       << std::endl;
   generic_server_usage();
 }
 
@@ -107,8 +107,8 @@ int main(int argc, const char **argv)
       break;
     }
     else if (ceph_argparse_flag(args, i, "--help", "-h", (char*)NULL)) {
+      // exit(1) will be called in the usage()
       usage();
-      break;
     }
     else if (ceph_argparse_witharg(args, i, &val, "--journal-check", (char*)NULL)) {
       int r = parse_rank("journal-check", val);
